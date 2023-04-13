@@ -75,16 +75,13 @@ export class TreeBuilder implements CJsVisitor<TreeNode> {
       return {tag: 'VarDef', children: this.visitStructInit(ctx.structInit()!)}
     }
 
-    if (ctx.assg()) {
-      return this.visitAssg(ctx.assg()!)
-    }
-
     const type = this.visitType(ctx.type()!);
+    const assignment = ctx.assg() ? this.visitAssg(ctx.assg()!) : undefined;
 
     return {
       tag: 'VarDef',
       text: ctx.ID()?.text,
-      children: {type}
+      children: {type, assignment}
     }
   }
 
@@ -179,6 +176,8 @@ export class TreeBuilder implements CJsVisitor<TreeNode> {
         tag: 'Literal',
         text: ctx.CHAR()?.text
       };
+    }
+    else if (ctx.STRING()) {return { tag: 'Literal',text: ctx.STRING()?.text};
     }
     else if (ctx.funCall()) {
       return this.visitFunCall(ctx.funCall()!)
