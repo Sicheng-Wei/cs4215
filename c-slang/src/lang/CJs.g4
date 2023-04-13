@@ -12,12 +12,24 @@ stat: assg ';'
     | return ';'
     ;
 
+expr: ID
+    | INT
+    | CHAR
+    | STRING
+    | funCall
+    | unaryOp expr
+    | expr binaryOp expr
+    | '(' expr ')'
+    | arrAccess
+    ;
+
 return : 'return' (expr)?;
 
 
 varDef: type ID 
     | type assg 
     | structInit
+    | arrDef
     ;
 
 structInit: 'struct' ID ID ;
@@ -40,15 +52,7 @@ funDef : type funcName '(' ')' '{' program '}'
 
 funcName: ID;
 
-expr: ID
-    | INT
-    | CHAR
-    | STRING
-    | funCall
-    | unaryOp expr
-    | expr binaryOp expr
-    | '(' expr ')'
-    ;
+
 
 
 funCall : funcName '(' expr (',' expr)* ')'
@@ -96,7 +100,8 @@ type  : 'void'
 structMember: type ID ';' ;
 structDef: 'struct' ID '{' (structMember)* '}' ';' ;
 
-
+arrDef: type ID'[]' '=' '{' expr (',' expr)* '}' ; 
+arrAccess: ID ('[' INT ']')* ;
 
 //==================================== Lexical components =========================================
 
@@ -108,6 +113,9 @@ SUB    : '-' ;
 MUL    : '*' ;
 DIV    : '/' ;
 MOD    : '%' ;
+
+ARRAY  : '[]' ;
+
 COMMA  : ',';
 PRINT  : 'print';
 COLON  : ';';
