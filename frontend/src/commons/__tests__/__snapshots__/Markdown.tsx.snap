@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Markdown page renders correctly 1`] = `
+"<Memo(Markdown) content=\\"\\\\nWelcome to the Source Academy playground!\\\\n\\\\nThis is a stripped down version of the Source Academy for the purpose of demonstrating an implementation\\\\nof a subset of the _C_ programming language. Made by [Geng Ning](https://github.com/zognin) &\\\\n[Ian](https://github.com/ianyong) for CS4215 Programming Language Implementation in AY2022/23 Semester 2.\\\\n\\\\nYou have chosen the sublanguage _C_ (although you never really had a choice).\\\\n\\\\nIn the editor on the left, you can use the [_Ace keyboard shortcuts_](https://github.com/ajaxorg/ace/wiki/Default-Keyboard-Shortcuts) \\\\nand also the [_Source Academy keyboard shortcuts_](https://github.com/source-academy/frontend/wiki/Source-Academy-Keyboard-Shortcuts).\\\\n\\\\n\\" openLinksInNewWindow={true}>
+  <div className=\\"md bp4-running-text\\" dangerouslySetInnerHTML={{...}} />
+</Memo(Markdown)>"
+`;
