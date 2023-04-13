@@ -5,11 +5,6 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": ["dist"],
-  "repository": "git@github.com:CS4215-GN-IY/c-slang.git",
-  "author": {
-    "name": "CS4215-GN-IY",
-    "url": "https://github.com/CS4215-GN-IY"
-  },
   "license": "Apache-2.0",
   "private": false,
   "bin": {

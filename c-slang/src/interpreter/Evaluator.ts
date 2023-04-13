@@ -1,36 +1,34 @@
-import { resolve } from "path";
 import { TreeNode } from "../ast/TreeNode";
 
 const builtIn = {
 
 
-    printf: (format: string,args: any[]) => 
-    {
-      let index = 0;
-      let output = "";
-      for (let i = 0; i < format.length; i++) {
-        if (format[i] === "%") {
-          const specifier = format[i + 1];
-          switch (specifier) {
-            case "d":
-              output += args[index++];
-              break;
-            case "s":
-              output += args[index++];
-              break;
-            case "c":
-              output += String.fromCharCode(args[index++]);
-              break;
-            default:
-              throw new Error(`Invalid format specifier: ${specifier}`);
-          }
-          i++; // Skip over the specifier
-        } else {
-          output += format[i];
+    printf: (format: string,args: any[]) => {
+        let index = 0;
+    let output = "";
+    for (let i = 0; i < format.length; i++) {
+      if (format[i] === "%") {
+        const specifier = format[i + 1];
+        switch (specifier) {
+          case "d":
+            output += args[index++];
+            break;
+          case "s":
+            output += args[index++];
+            break;
+          case "c":
+            output += String.fromCharCode(args[index++]);
+            break;
+          default:
+            throw new Error(`Invalid format specifier: ${specifier}`);
         }
+        i++; // Skip over the specifier
+      } else {
+        output += format[i];
       }
-      console.log(resultStack)
-      console.log(output)
+    }
+  
+    console.log(output);
     }
 }
   
@@ -97,7 +95,7 @@ function evaluateFunctionCall(node: TreeNode, args: any[]) {
     const fnName:string = evaluate(node.funcName!)
     if (fnName == 'printf') {
         const string = evaluate(node.args![0])
-        globalenv[fnName](string,resultStack)
+        globalenv[fnName](string,resultStack )
         //const format = resultStack[resultStack.length - 1]
         return;
     }
