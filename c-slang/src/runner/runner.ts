@@ -5,15 +5,18 @@ import { stdio } from "../clib/stdio";
 
 // run the code
 export const run = async (code: string): Promise<any> => {
+  const globalEnv: Environment = new Environment()
+  const ev = new Evaluator()
+  globalEnv.fndefine("printf", stdio.printf)
+  const parsed = parser(code)
+
+  // evaluate & output
+  const retval = ev.evaluate(parsed, globalEnv)
+  ev.output.push("Program exit code: " + retval)
+  var exitcode = ev.output
+
   return await new Promise(
-    (resolve: (value: any) => void, reject: (reason?: any) => void) => {
-      const globalEnv: Environment = new Environment()
-      const ev = new Evaluator()
-      globalEnv.fndefine("printf", stdio.printf)
-      const parsed = parser(code)
-      console.log(parsed)
-      const retval = ev.evaluate(parsed, globalEnv)
-      var exitcode = ev.output + "Program exit with code:" + retval
+    (resolve, reject) => {
       resolve(exitcode)
     }
   );

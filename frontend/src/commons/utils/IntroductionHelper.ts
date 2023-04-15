@@ -6,9 +6,6 @@ import { Links } from './Constants';
 const MAIN_INTRODUCTION = `
 Welcome to the Source Academy playground!
 
-This is a stripped down version of the Source Academy for the purpose of demonstrating an implementation
-of a subset of the _C_ programming language.
-
 `;
 
 const HOTKEYS_INTRODUCTION = `

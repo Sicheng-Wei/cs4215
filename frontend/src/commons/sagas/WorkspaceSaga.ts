@@ -554,7 +554,9 @@ export function* evalCode(
     const result = yield call(run, code);
     yield put(notifyProgramEvaluated(result, code, workspaceLocation));
     if (actionType !== EVAL_SILENT) {
-      yield put(actions.evalInterpreterSuccess(result, workspaceLocation));
+      for (let i = 0; i < result.length; i++) {
+        yield put(actions.evalInterpreterSuccess(result[i], workspaceLocation));
+      }
     }
   } catch (err) {
     yield put(actions.addEvent([EventType.ERROR]));

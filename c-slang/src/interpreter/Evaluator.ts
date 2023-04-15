@@ -8,10 +8,10 @@ import { RuntimeStack } from "./RuntimeStack";
 const RTS: RuntimeStack = new RuntimeStack()
 
 // stores final value from program
-const resultStack: number[] = [];
 
 export class Evaluator {
-    output:string[] = []
+    resultStack: any[] = [];
+    output: any[] = []
 
     evaluate(node: TreeNode, env: Environment): any {
         switch(node.tag) {
@@ -76,10 +76,13 @@ export class Evaluator {
                 const fnCallParams = node.args!.map(param => this.evaluate(param, env)) || []
     
                 if (fn_name == 'printf') { // check for builtIns
-                    const string = this.evaluate(node.args![0], env)
-                    const va =  env.fnlookup(fn_name)(string,resultStack)
-                    this.output.push(va)
-                    return va;
+                    const pformat = this.evaluate(node.args![0], env).slice(1, -1)
+                    const va = env.fnlookup(fn_name)(pformat, this.resultStack)
+                    for (const item of va) {
+                        this.output.push(item)
+                    }
+                    // this.output.push(va)
+                    return undefined;
                 }
     
                 const fn = env.fnlookup(fn_name)
@@ -95,7 +98,7 @@ export class Evaluator {
                 // add to RTS
                 RTS.push(fn)
                 const r = this.evaluate(fn.body!, localEnv)
-                resultStack.push(r)
+                this.resultStack.push(r)
                 RTS.pop()
                 return r;
                 
