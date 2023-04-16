@@ -1,6 +1,6 @@
 import { Chapter, Variant } from 'js-slang/dist/types';
 
-import { styliseSublanguage, sublanguages } from '../application/ApplicationTypes';
+import { sublanguages } from '../application/ApplicationTypes';
 import { Links } from './Constants';
 
 const MAIN_INTRODUCTION = `
@@ -40,10 +40,7 @@ const generateSourceDocsLink = (sourceChapter: Chapter, sourceVariant: Variant) 
   ) {
     return 'You have chosen an invalid sublanguage. Please pick a sublanguage from the dropdown instead.';
   }
-  return `You have chosen the sublanguage _${styliseSublanguage(
-    sourceChapter,
-    sourceVariant
-  )}_ (although you never really had a choice).`;
+  return ``;
 };
 
 const generateIntroductionText = (sourceChapter: Chapter, sourceVariant: Variant) => {

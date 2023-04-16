@@ -9,6 +9,7 @@ export const run = async (code: string): Promise<any> => {
   const ev = new Evaluator()
   globalEnv.fndefine("printf", stdio.printf)
   const parsed = parser(code)
+  // console.log(parsed)
 
   // evaluate & output
   const retval = ev.evaluate(parsed, globalEnv)

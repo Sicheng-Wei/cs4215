@@ -117,6 +117,9 @@ export class Evaluator {
                 const left = this.evaluate(node.left!, env)
                 const right = this.evaluate(node.right!, env)
                 const result = this.binaryOp(operator, left,right)
+                console.log(left)
+                console.log(right)
+                console.log(result)
                 return result;
             case 'BinaryOp':
                 return node.text!
@@ -126,10 +129,15 @@ export class Evaluator {
                     return node.text!
                 return val
             case 'Identifier': // GET FROM ENVIRONMENT, FIXME: IMPROVE IT!
-                // return peekStackFrame().env[node.text!]
-                // console.log(env.values[node.text!])
+                // console.log(env.values)
+                // console.log(env.fnvalues)
+                // return env.fnvalues[node.text!]
+                const funcId = env.fnlookup(node.text!)
+                if (funcId !== undefined) return funcId
+                const varId = env.lookup(node.text!)
+                if (varId !== undefined) return varId
+                throw Error("Identifier Error: Undefined Identifier")
                 return env.fnvalues[node.text!]
-                break;
             case 'returnType':
                 return node.text!
             case 'FuncName':
@@ -165,11 +173,9 @@ export class Evaluator {
                 break;
             
             case 'Assignment':
-                env.values[node.text!] = this.evaluate(node.children!, env)
-                    return {name: node.text!, 
-                        isPointerPresent: node.isPointerPresent, 
-                        value: this.evaluate(node.children!, env) }
-                    break;
+                return {name: node.text!, 
+                    isPointerPresent: node.isPointerPresent, 
+                    value: this.evaluate(node.children!, env) }
             case 'Type':
                 return node.text
             default:

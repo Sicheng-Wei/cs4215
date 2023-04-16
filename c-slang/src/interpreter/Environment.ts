@@ -3,7 +3,7 @@ import { stdio } from "../clib/stdio";
 export class Environment {
     // variable mapping
     values: { [key: string]: any } = {};
-    address: { [key: string]: number } = {};
+    private address: { [key: string]: number } = {};
 
     // function mapping
     fnvalues: { [key: string]: any } = {};
@@ -20,8 +20,6 @@ export class Environment {
         return this.values[name];
       } else if (this.parentEnv) {
         return this.parentEnv.lookup(name);
-      } else {
-        throw new Error(`Undefined variable ${name}`);
       }
     }
 
@@ -30,8 +28,6 @@ export class Environment {
         return this.address[name];
       } else if (this.parentEnv) {
         return this.parentEnv.getaddr(name);
-      } else {
-        throw new Error(`Undefined variable ${name}`);
       }
     }
 
@@ -40,8 +36,6 @@ export class Environment {
         return this.fnvalues[name];
       } else if (this.parentEnv) {
         return this.parentEnv.fnlookup(name);
-      } else {
-        throw new Error(`Undefined function ${name}`);
       }
     }
   
