@@ -50,7 +50,7 @@ export const stdio = {
         let lfPtr
         for (let i = 0; i < lfStack.length; i++) {
             lfPtr = lfStack[i]
-            if (i >= 1) output.push(lfPtr.slice(2, -1))
+            if (i >= 1) output.push(lfPtr.slice(2))
             else output.push(lfPtr)
         }
         return output
